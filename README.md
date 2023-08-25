@@ -1,2 +1,2 @@
 # HelloAPI
-Examples of APIs in AWS
+Creating example AWS Web APIs
