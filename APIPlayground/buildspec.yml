@@ -21,4 +21,4 @@ phases:
       - cd $CODEBUILD_SRC_DIR/APIPlayground
       - cd dist/$APP_NAME
       - ls -la
-      - aws s3 sync . s3://atjoseph/apiplayground/ --delete
+      - aws s3 sync . s3://atjoseph/ --delete
