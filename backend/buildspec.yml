@@ -19,6 +19,8 @@ phases:
 
 artifacts:
   type: zip
+  base-directory: $APP_NAME
+  discard-paths: yes
   files:
-    - $APP_NAME/template.yaml 
-    - $APP_NAME/output-template.yaml
+    - template.yaml 
+    - output-template.yaml
