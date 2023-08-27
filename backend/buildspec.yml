@@ -20,5 +20,5 @@ phases:
 artifacts:
   type: zip
   files:
-    - template.yaml 
-    - output-template.yaml
+    - $APP_NAME/template.yaml 
+    - $APP_NAME/output-template.yaml
