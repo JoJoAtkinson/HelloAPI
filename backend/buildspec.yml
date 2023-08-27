@@ -20,5 +20,5 @@ phases:
 artifacts:
   type: zip
   files:
-    - $CODEBUILD_SRC_DIR/$APP_NAME/template.yaml 
-    - $CODEBUILD_SRC_DIR/$APP_NAME/output-template.yaml
+    - template.yaml 
+    - output-template.yaml
