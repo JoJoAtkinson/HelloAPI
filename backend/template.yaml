@@ -1,0 +1,37 @@
+AWSTemplateFormatVersion : "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: A sample SAM template for deploying Lambda functions.
+Parameters:
+  FunctionName:
+    Type: String
+  BackendServiceBaseURL:
+    Type: String
+  BackendServiceApiKeySecretArn:
+    Type: String
+  Environment:
+    Type: String
+  Application:
+    Type: String
+Resources:
+  MyFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: !Ref FunctionName
+      CodeUri: ./
+      Runtime: python3.11
+      Handler: lambda_function.lambda_handler
+      Environment:
+        Variables:
+          BACKEND_SERVICE_BASE_URL: !Ref BackendServiceBaseURL
+          BACKEND_SERVICE_API_KEY_SECRET_ARN: !Ref BackendServiceApiKeySecretArn
+      Policies:
+        - Version: "2012-10-17"
+          Statement:
+            - Effect: Allow
+              Action:
+                - "logs:*"
+                - "secretsmanager:GetSecretValue"
+              Resource: "*" 
+      Tags:
+        Environment: !Ref Environment
+        Application: !Ref Application

@@ -1,0 +1,24 @@
+# buildspec.yml
+version: 0.2
+env:
+  variables:
+    APP_NAME: "backend"
+phases:
+  install:
+    commands:
+      # Install/upgrade pip and AWS CLI 
+      - cd $CODEBUILD_SRC_DIR/$APP_NAME
+      - pip install --upgrade pip awscli
+      # Install the packages required
+      - pip install -r requirements.txt -t .
+  build:
+    commands:
+      # LAMBDA_ARTIFACT_STORE_BUCKET should be an environment variable in AWS::CodeBuild::Project
+      - cd $CODEBUILD_SRC_DIR/$APP_NAME
+      - aws cloudformation package --s3-bucket $LAMBDA_ARTIFACT_STORE_BUCKET --template-file template.yaml --output-template-file output-template.yaml
+
+artifacts:
+  type: zip
+  files:
+    - $CODEBUILD_SRC_DIR/$APP_NAME/template.yaml 
+    - $CODEBUILD_SRC_DIR/$APP_NAME/output-template.yaml

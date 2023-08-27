@@ -8,17 +8,17 @@ phases:
       nodejs: 18
     commands:
       - echo install process started
-      - cd $CODEBUILD_SRC_DIR/APIPlayground
+      - cd $CODEBUILD_SRC_DIR/$APP_NAME
       - npm install && npm install -g @angular/cli
   build:
     commands:
       - echo build process started now
-      - cd $CODEBUILD_SRC_DIR/APIPlayground
+      - cd $CODEBUILD_SRC_DIR/$APP_NAME
       - ng build --configuration=production
   post_build:
     commands:
       - echo build process finished, we should upload to S3 now
-      - cd $CODEBUILD_SRC_DIR/APIPlayground
+      - cd $CODEBUILD_SRC_DIR/$APP_NAME
       - cd dist/$APP_NAME
       - ls -la
       - aws s3 sync . s3://atjoseph/ --delete

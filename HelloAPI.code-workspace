@@ -2,13 +2,13 @@
   "folders": [
     {
       // Source code
-      "name": "APIPlayground",
-      "path": "APIPlayground"
+      "name": "apiplayground",
+      "path": "apiplayground"
     },
     {
       // Source code
-      "name": "ServerlessFuncs",
-      "path": "ServerlessFuncs"
+      "name": "backend",
+      "path": "backend"
     },
     {
       // Source code

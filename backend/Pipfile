@@ -1,0 +1,14 @@
+
+
+
+[dev-packages]
+pytest = "*"
+behave = "*"
+
+
+[packages]
+requests = "*"
+
+[requires]
+python_version = "3.11"
+
