@@ -1,0 +1,36 @@
+version: 0.2
+env:
+  variables:
+    APP_NAME: "ServerlessFuncs"
+phases:
+  install:
+    commands:
+      - echo npm setup
+      - cd $CODEBUILD_SRC_DIR/$APP_NAME
+      - rm package-lock.json
+      - npm install --silent --no-progress -g npm
+      - npm install --silent --no-progress -g serverless
+      - npm --version
+  pre_build:
+    commands:
+      - echo build process started now
+      - cd $CODEBUILD_SRC_DIR/$APP_NAME
+      - npm install --silent --no-progress
+  build:
+    commands:
+      - echo run tests
+      - cd $CODEBUILD_SRC_DIR/$APP_NAME
+      - npm run-script lint
+      - npm run test
+
+      - echo deploy serverless package
+      - mkdir -p target/stg
+      - mkdir target/prod
+      - serverless package --package target/stg --stage stg -v -r eu-central-1
+      - serverless package --package target/prod --stage prod -v -r eu-central-1
+
+artifacts:
+  files:
+    - target/**/*
+    - serverless.yml
+    - deploy.sh
