@@ -4,11 +4,12 @@
 [dev-packages]
 pytest = "*"
 behave = "*"
-
+moto = {extras = ["dynamodb", "s3"], version = "*"}
 
 [packages]
 requests = "*"
+boto3 = "*"
+boto3-type-annotations = "*"
 
 [requires]
 python_version = "3.11"
-
