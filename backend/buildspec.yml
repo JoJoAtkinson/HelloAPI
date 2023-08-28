@@ -5,18 +5,28 @@ env:
     APP_NAME: "backend"
 phases:
   install:
+    runtime-versions:
+      python: 3.11
     commands:
       # Install/upgrade pip and AWS CLI 
       - cd $CODEBUILD_SRC_DIR/$APP_NAME
       - pip install --upgrade pip awscli
       # Install the packages required
-      - pip install -r requirements.txt -t .
+      - pip install -r requirements.txt -t lib
   build:
     commands:
       # LAMBDA_ARTIFACT_STORE_BUCKET should be an environment variable in AWS::CodeBuild::Project
       - cd $CODEBUILD_SRC_DIR/$APP_NAME
-      - aws cloudformation package --s3-bucket $LAMBDA_ARTIFACT_STORE_BUCKET --template-file template.yaml --output-template-file output-template.yaml
+      - zip -r9 deployment_package.zip
 
+      # experementing with cloudformaiton 
+      # - aws cloudformation package --s3-bucket $LAMBDA_ARTIFACT_STORE_BUCKET --template-file template.yaml --output-template-file output-template.yaml
+
+  post_build:
+    commands:
+      - echo "updating lambda funcitons..."
+      - aws lambda update-function-code --function-name sample_func --zip-file fileb://deployment_package.zip
+      
 artifacts:
   type: zip
   base-directory: $APP_NAME
