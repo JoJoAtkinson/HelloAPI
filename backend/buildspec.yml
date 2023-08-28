@@ -18,20 +18,18 @@ phases:
       # LAMBDA_ARTIFACT_STORE_BUCKET should be an environment variable in AWS::CodeBuild::Project
       - cd $CODEBUILD_SRC_DIR/$APP_NAME
       - zip -r9 deployment_package.zip
-
       # experementing with cloudformaiton 
       # - aws cloudformation package --s3-bucket $LAMBDA_ARTIFACT_STORE_BUCKET --template-file template.yaml --output-template-file output-template.yaml
-
   post_build:
     commands:
       - echo "updating lambda funcitons..."
       - cd $CODEBUILD_SRC_DIR/$APP_NAME
-      - aws lambda update-function-code --function-name sample_func --zip-file fileb://deployment_package.zip
+      - aws lambda update-function-code --function-name sample_func --zip-file fileb://$CODEBUILD_SRC_DIR/$APP_NAME/deployment_package.zip
       
-artifacts:
-  type: zip
-  base-directory: $APP_NAME
-  discard-paths: yes
-  files:
-    - template.yaml 
-    - output-template.yaml
+# artifacts:
+#   type: zip
+#   base-directory: $APP_NAME
+#   discard-paths: yes
+#   files:
+#     - template.yaml 
+#     - output-template.yaml
