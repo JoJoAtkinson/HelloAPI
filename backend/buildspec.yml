@@ -25,6 +25,7 @@ phases:
   post_build:
     commands:
       - echo "updating lambda funcitons..."
+      - cd $CODEBUILD_SRC_DIR/$APP_NAME
       - aws lambda update-function-code --function-name sample_func --zip-file fileb://deployment_package.zip
       
 artifacts:
