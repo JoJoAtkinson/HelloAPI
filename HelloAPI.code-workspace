@@ -2,16 +2,6 @@
   "folders": [
     {
       // Source code
-      "name": "apiplayground",
-      "path": "apiplayground"
-    },
-    {
-      // Source code
-      "name": "backend",
-      "path": "backend"
-    },
-    {
-      // Source code
       "name": "root",
       "path": "."
     },
